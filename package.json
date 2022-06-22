@@ -1,0 +1,23 @@
+{
+  "name": "todo-app",
+  "version": "1.0.0",
+  "description": "The small CRUD application",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/baotram11/todo-app.git"
+  },
+  "author": "baotram11",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/baotram11/todo-app/issues"
+  },
+  "homepage": "https://github.com/baotram11/todo-app#readme",
+  "dependencies": {
+    "express": "^4.18.1",
+    "mongoose": "^6.4.0"
+  }
+}
