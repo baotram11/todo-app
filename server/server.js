@@ -20,7 +20,9 @@ connection.once('open', () => {
 });
 
 // setup routes
-const taskRouter = require('./routes/tasks')
+const taskRouter = require('./routes/tasks');
+
+app.use('/tasks', taskRouter);
 
 app.listen(port, () => {
     console.log(`Server listening at http://localhost:${port}`);

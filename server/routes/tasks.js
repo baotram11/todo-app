@@ -9,18 +9,17 @@ router.route('/').get((req, res) => {
 });
 
 router.route('/add').post((req, res) => {
-    const taskID = Number(req.body.TaskID);
+    const taskID = req.body.TaskID;
     const taskName = req.body.TaskName;
-    const dateStart = Date.parse(req.body.DateStart);
-    const dateEnd = Date.parse(req.body.DateEnd);
+    const dateStart = new Date();
+    const dateEnd = req.body.DateEnd;
 
     const newTask = new Task({
-        taskID,
-        taskName,
-        dateStart,
-        dateEnd,
+        TaskID: taskID,
+        TaskName: taskName,
+        DateStart: dateStart,
+        DateEnd: dateEnd,
     });
-
     newTask
         .save()
         .then(() => res.json('The new task added!'))
