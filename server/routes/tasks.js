@@ -1,29 +1,44 @@
 const router = require('express').Router();
 
-let Task = require('../models/task.model');
+const Task = require('../models/task.model');
 
-router.route('/').get((req, res) => {
-    Task.find()
-        .then((tasks) => res.json(tasks))
-        .catch((err) => res.status(400).json('Error: ' + err));
+router.get('/', async (req, res) => {
+    try {
+        const tasks = await Task.find();
+        res.send(tasks);
+    } catch (error) {
+        res.send(error);
+    }
 });
 
-router.route('/add').post((req, res) => {
-    const taskID = req.body.TaskID;
-    const taskName = req.body.TaskName;
-    const dateStart = new Date();
-    const dateEnd = req.body.DateEnd;
+router.post('/', async (req, res) => {
+    try {
+        const task = await new Task(req.body).save();
+        res.send(task);
+    } catch (error) {
+        res.send(error);
+    }
+});
 
-    const newTask = new Task({
-        TaskID: taskID,
-        TaskName: taskName,
-        DateStart: dateStart,
-        DateEnd: dateEnd,
-    });
-    newTask
-        .save()
-        .then(() => res.json('The new task added!'))
-        .catch((err) => res.status(400).json('Error: ' + err));
+router.put('/:id', async (req, res) => {
+    try {
+        const task = await Task.findOneAndUpdate(
+            { TaskID: req.params.id },
+            req.body
+        );
+        res.send(task);
+    } catch (error) {
+        res.send(error);
+    }
+});
+
+router.delete('/:id', async (req, res) => {
+    try {
+        const task = await Task.findOneAndDelete({ TaskID: req.params.id });
+        res.send(task);
+    } catch (error) {
+        res.send(error);
+    }
 });
 
 module.exports = router;
